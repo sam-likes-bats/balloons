@@ -1,4 +1,6 @@
-var bow , arrow,  scene;
+var play,end;
+var game=play;
+var bow , arrow,  scene,redballoongroup,greenballoongroup,blueballoongroup,pinkballoongroup,arrowGroup;
 var bowImage, arrowImage, green_balloonImage, red_balloonImage, pink_balloonImage ,blue_balloonImage, backgroundImage;
 
 var score=0;
@@ -30,21 +32,30 @@ function setup() {
   bow = createSprite(380,220,20,50);
   bow.addImage(bowImage); 
   bow.scale = 1;
-  
-   score = 0    
+
+  redballoongroup=new Group();
+  greenballoongroup=new Group();
+  blueballoongroup=new Group();
+  pinkballoongroup=new Group();
+  arrowGroup= new Group();
+
+
+  score = 0    
 }
 
 function draw() {
- background(0);
+//Text("score: "+score,350,300);
+console.log(score);
+  if (game===play){
+  background(0);
 
   
   //arco em movimento
   bow.y = World.mouseY
   
    // soltar arco quando a tecla espaço for pressionada
-  if (keyDown("space")) {
+  if (keyDown("space")){
     createArrow();
-    
   }
    
   //criando inimigos continuamente
@@ -52,17 +63,28 @@ function draw() {
   
   if (World.frameCount % 60 == 0) {
    switch(select_balloon ){
-    case 1:red();
+    case 1:redSpawner();
     break;
-    case 2:blue();
+    case 2:blueSpawner();
     break;
-    case 3:green();
+    case 3:greenSpawner();
     break;
-    case 4:pink();
+    case 4:pinkSpawner();
     break;
     default:break;
   }}
-    
+
+ }
+  if(score===30){
+    game=end;
+     if (game===end){
+  redballoongroup.setVelocityXEach(0);
+  blueballoongroup.setVelocityXEach(0);
+  greenballoongroup.setVelocityXEach(0);
+  pinkballoongroup.setVelocityXEach(0);
+  arrowGroup.setVelocityXEach(0);
+ }
+  }
   drawSprites();
 }
 
@@ -78,34 +100,38 @@ function draw() {
   arrow.scale = 0.3;
 }
 
-function red() {
+function redSpawner() {
   var red = createSprite(0,Math.round(random(20, 370)), 10, 10);
   red.addImage(red_balloonImage);
   red.velocityX = 3;
   red.lifetime = 150;
-  red.scale = 0.5;
+  red.scale = 0.1;
+  redballoongroup.add(red);
 }
 
-function blue() {
+function blueSpawner() {
   var blue =createSprite(0,Math.round(random(20,370)),10,10);
   blue.addImage(blue_balloonImage);
   blue.velocityX=3;
   blue.lifetime=150;
-  blue.scale=0.4;
+  blue.scale=0.1;
+  blueballoongroup.add(blue);
 }
 
-function green() {
+function greenSpawner() {
   var green =createSprite(0,Math.round(random(20,370)),10,10);
   green.addImage(green_balloonImage);
   green.velocityX=3;
   green.lifetime=150;
-  green.scale=0.7;
+  green.scale=0.1;
+  greenballoongroup.add(green);
 }
 
-function pink() {
+function pinkSpawner() {
   var pink =createSprite(0,Math.round(random(20,370)),10,10);
   pink.addImage(pink_balloonImage);
   pink.velocityX=3;
   pink.lifetime=150;
-  pink.scale=0.6;
+  pink.scale=1.2;
+  pinkballoongroup.add(pink);
 }

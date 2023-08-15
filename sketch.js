@@ -57,6 +57,27 @@ console.log(score);
   if (keyDown("space")){
     createArrow();
   }
+
+  if(arrowGroup.isTouching(redballoongroup)){
+    score=score+5;
+    redballoongroup.destroyEach();
+    arrowGroup.destroyEach();
+  }
+  if(arrowGroup.isTouching(greenballoongroup)){
+    score=score+3;
+    greenballoongroup.destroyEach();
+    arrowGroup.destroyEach();
+  }
+  if(arrowGroup.isTouching(pinkballoongroup)){
+    score=score+1;
+    pinkballoongroup.destroyEach();
+    arrowGroup.destroyEach();
+  }
+  if(arrowGroup.isTouching(blueballoongroup)){
+    score=score+2;
+    blueballoongroup.destroyEach();
+    arrowGroup.destroyEach();
+  }
    
   //criando inimigos continuamente
   var select_balloon=Math.round(random(1,4));
@@ -98,6 +119,7 @@ console.log(score);
   arrow.velocityX = -4;
   arrow.lifetime = 100;
   arrow.scale = 0.3;
+  arrowGroup.add(arrow);
 }
 
 function redSpawner() {
